@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node -r dotenv/config ./scripts/seed.js"
+    "seed": "node -r dotenv/config ./scripts/seed.js",
+    "reset": "node -r dotenv/config ./scripts/reset.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
