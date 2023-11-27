@@ -31,6 +31,11 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({ user }) => {
           </div>
 
           <DropdownMenuSeparator />
+          <Link href="/address">
+            <DropdownMenuItem className="cursor-pointer">
+              住所表示
+            </DropdownMenuItem>
+          </Link>
           <Link href="/billing">
             <DropdownMenuItem className="cursor-pointer">
               プラン・請求

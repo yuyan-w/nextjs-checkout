@@ -8,6 +8,26 @@ import Stripe from "stripe";
 import { getUserById, updateUserCustomerId } from "../store/user";
 import { PREMIUM_PRICE, STANDARD_PRICE } from "../constraints/constraints";
 
+export const getShippingByCustomerID = async ({
+  customerId,
+}: {
+  customerId: string;
+}) => {
+  try {
+    const res = await stripe.customers.retrieve(customerId);
+
+    // 顧客が削除されている場合は、customer.shippingが取得できないのでエラーにする
+    if (res.deleted) {
+      throw new Error("顧客が削除されています");
+    }
+    const customer = res as Stripe.Customer;
+
+    return customer.shipping;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getPurchaseCheckoutURL = async ({
   userId,
   article,
@@ -126,6 +146,9 @@ export const getSubscriptionCheckoutURL = async ({
       line_items: [{ price: priceId, quantity: 1 }],
       // カード決済時の住所入力をstripeに任せます
       billing_address_collection: "auto",
+      shipping_address_collection: {
+        allowed_countries: ["JP"],
+      },
       metadata: {
         userId,
       },
@@ -163,6 +186,7 @@ export const createCustomerId = async ({ userId }: { userId: string }) => {
       metadata: {
         userId,
       },
+      preferred_locales: ["ja"],
     });
 
     await updateUserCustomerId({ userId, customerId: customer.id });

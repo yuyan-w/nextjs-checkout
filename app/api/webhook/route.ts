@@ -26,6 +26,28 @@ export async function POST(req: Request) {
   // イベントの処理
   try {
     switch (event.type) {
+      case "checkout.session.completed": {
+        const session: Stripe.Checkout.Session = event.data.object;
+
+        const shippingDetails = session.shipping_details;
+        if (shippingDetails !== null) {
+          await stripe.customers.update(session.customer as string, {
+            shipping: {
+              name: shippingDetails.name!,
+              address: {
+                country: shippingDetails.address?.country!,
+                postal_code: shippingDetails.address?.postal_code!,
+                city: shippingDetails.address?.city!,
+                state: shippingDetails.address?.state!,
+                line1: shippingDetails.address?.line1!,
+                line2: shippingDetails.address?.line2!,
+              },
+            },
+          });
+        }
+
+        break;
+      }
       case "invoice.payment_succeeded": {
         const invoice: Stripe.Invoice = event.data.object;
 
