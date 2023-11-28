@@ -11,7 +11,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export const SkeletonForm = () => {
   return (
-    <Card className="bg-white w-[320px] flex flex-col items-center h-[500px] hover:scale-[1.05] transition duration-300">
+    <Card className="bg-white w-[320px] flex flex-col items-center h-[500px] hover:scale-[1.05] transition duration-300 mt-14">
       <CardHeader className="space-y-2 h-32 w-full">
         <CardTitle className="text-center w-full">
           <Skeleton className="h-6 w-full" />

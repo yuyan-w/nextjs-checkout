@@ -13,10 +13,12 @@ import { Skeleton } from "../ui/skeleton";
 
 type SubscriptionItemProps = {
   price: Stripe.Price;
+  interval: string;
 };
 
 export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({
   price,
+  interval,
 }) => {
   const product = price.product as Stripe.Product;
   return (
@@ -27,7 +29,7 @@ export const SubscriptionItem: React.FC<SubscriptionItemProps> = ({
       </CardHeader>
       <CardContent className="mt-12">
         <div className="text-xl font-bold text-gray-700">
-          ￥{(price.unit_amount || 0).toLocaleString("en-US")}円 / 月
+          ￥{(price.unit_amount || 0).toLocaleString("en-US")}円 / {interval}
         </div>
       </CardContent>
       <CardFooter className="mt-auto w-full">

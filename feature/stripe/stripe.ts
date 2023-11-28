@@ -201,7 +201,7 @@ export const createCustomerId = async ({ userId }: { userId: string }) => {
 export const getStripePrices = async () => {
   try {
     const prices = await stripe.prices.list({
-      lookup_keys: ["premium", "standard"],
+      lookup_keys: ["premium", "standard", "premium_annual", "standard_annual"],
       expand: ["data.product"],
     });
     return prices.data;
