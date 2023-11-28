@@ -66,7 +66,10 @@ model Subscription {
 model Purchase {
   id                 String    @id @default(cuid())
   userId             String    
-  articleId          String  
+  articleId          String
+  paymentIntentId   String    @unique
+  paymentStatus     String
+  amount            Int
 
   @@unique([userId, articleId])
 

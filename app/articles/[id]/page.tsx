@@ -54,7 +54,7 @@ const canUserAccessPage = async ({ article }: { article: Article }) => {
     userId: session.user.id,
     articleId: article.id,
   });
-  if (purchase !== null) {
+  if (purchase !== null && purchase.paymentStatus === "succeeded") {
     return;
   }
 

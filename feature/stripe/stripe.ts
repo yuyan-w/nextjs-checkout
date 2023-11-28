@@ -85,6 +85,7 @@ export const getPurchaseCheckoutURL = async ({
           userId,
           articleId: article.id,
         },
+        capture_method: "manual",
       },
     });
     return checkoutSession.url;
