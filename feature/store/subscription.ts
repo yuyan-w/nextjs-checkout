@@ -56,6 +56,9 @@ export const upsertSubscription = async ({
         status: subscription.status,
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         planLevel: level,
+        amount: subscription.items.data[0].price.unit_amount ?? undefined,
+        period:
+          subscription.items.data[0].price.recurring?.interval ?? undefined,
       },
       create: {
         userId: userId,
@@ -65,6 +68,9 @@ export const upsertSubscription = async ({
         status: subscription.status,
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         planLevel: level,
+        amount: subscription.items.data[0].price.unit_amount ?? 0,
+        period:
+          subscription.items.data[0].price.recurring?.interval ?? "invalid",
       },
     });
     return upsertSubscription;
